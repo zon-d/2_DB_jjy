@@ -91,6 +91,16 @@ ORDER BY 1;
 --  그룹함수가 적용되지 않은 컬럼을 
 --  모두 GROUP BY절에 작성해야함.
 
+-- EMPLOYEE 테이블에서 부서별로 같은 직급인 사원의 수를 조회
+-- (부서코드 오름차순, 직급코드 내림차순)
+
+SELECT DEPT_CODE, JOB_CODE, COUNT(*)
+FROM EMPLOYEE
+GROUP BY DEPT_CODE, JOB_CODE -- DEPT_CODE로 그룹을 나누고,
+							 -- 나눠진 그룹 내에서 JOB_CODE로 또 그룹을 분류
+							 --> 세분화
+ORDER BY DEPT_CODE, JOB_CODE DESC;
+
 
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -99,3 +109,34 @@ ORDER BY 1;
 
 -- * HAVING 절 : 그룹함수로 구해 올 그룹에 대한 조건을 설정할 때 사용
 -- HAVING 컬럼명 | 함수식 비교연산자 비교값
+
+-- 부서별 평균 급여가 3백만원 이상인 부서를 조회(부서코드 오름차순)
+SELECT DEPT_CODE, AVG(SALARY)
+FROM EMPLOYEE
+-- WHERE SALARY >= 3000000 --> 한 사람의 급여가 300백만 이상이라는 조건(요구사항 충족X)
+GROUP BY DEPT_CODE 
+HAVING AVG(SALARY) >= 3000000 --> DEPT_CODE 그룹 중 급여 평균이 3백만 이상인 그룹만 남음
+ORDER BY DEPT_CODE;
+
+-- EMPLOYEE 테이블에서 직급별 인원수가 5명 이하인 직급코드, 인원수 조회
+SELECT JOB_CODE, COUNT(*)
+FROM EMPLOYEE
+GROUP BY JOB_CODE
+HAVING COUNT(*) <= 5 -- HAVING절에는 그룹 함수가 반드시 작성된다!
+ORDER BY 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
