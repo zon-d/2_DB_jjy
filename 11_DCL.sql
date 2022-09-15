@@ -126,7 +126,21 @@ SELECT * FROM kh_jjy.EMPLOYEE;
 ---> 운영용DB의 데이터를 복사
 ---> 테스트
 
+-- 4. (sample) kh_jjy.EMPLOYEE 테이블을 복사한 테이블 생성
+CREATE TABLE EMP_SAMPLE
+AS SELECT * FROM kh_jjy.EMPLOYEE;
 
+SELECT * FROM EMP_SAMPLE;
+--> 복사본이므로 원본 영향 X
+
+-- 5. (KH) sample 계정에 부여한 EMPLOYEE 테이블 조회 권한 회수(REVOKE)
+
+-- [권한 회수 작성법]
+-- REVOKE 객체권한 ON 객체명 FROM 사용자명;
+REVOKE SELECT ON EMPLOYEE FROM jjy_sample;
+
+-- 6. (sample) 권한 회수 확인
+SELECT * FROM kh_jjy.EMPLOYEE
 
 
 
